@@ -30,10 +30,9 @@ class PostController extends Controller
     }
 
     //showメソッド(Postの詳細表示)
-    public function show(Post $post)
+    public function show($id)
     {
-        // 紐づいているタグやコメントもロードしておく
-        $post->load(['tags', 'comments']);
+        $post = Post::with(['comments', 'tags'])->findOrFail($id);
 
         return view('posts.show', compact('post'));
     }
